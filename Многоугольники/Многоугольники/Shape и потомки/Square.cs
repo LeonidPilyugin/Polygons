@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Math;
+using System.Drawing;
+
+namespace Многоугольники
+{
+    class Square : Shape
+    {
+        public Square() : base() { }
+        public Square(Color color, int radius, Point point) : base(color, radius, point) { }
+
+        private double Length
+        {
+            get { return radius * Sqrt(2); }
+        }
+
+        public override bool IsInside(Point p)
+        {
+            return Abs(p.X - point.X) <= Length / 2 && Abs(p.Y - point.Y) <= Length / 2;
+        }
+        public override void Draw(Graphics g)
+        {
+            g.FillRectangle(new SolidBrush(color), point.X - (int)Length / 2, point.Y - (int)Length / 2, (int)Length, (int)Length);
+        }
+    }
+}
