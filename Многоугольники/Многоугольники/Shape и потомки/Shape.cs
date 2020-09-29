@@ -15,6 +15,7 @@ namespace Многоугольники
         protected static Color color;
         protected static int radius;
         protected Point point;
+        protected bool IsInShell;
         public abstract bool IsInside(Point p);
         public abstract void Draw(Graphics g);
 
@@ -27,6 +28,7 @@ namespace Многоугольники
         {
             point = new Point(100, 100);
             Isdd = false;
+            IsInShell = false;
         }
         public Shape(Color color, int radius, Point point)
         {

@@ -26,15 +26,27 @@ namespace Многоугольники
             ShType = ShapeType.Circle;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
+        private void Form1_Load(object sender, EventArgs e)  { }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
+        private void DrawPoints(Graphics g)
         {
             foreach (Shape sh in ShapeList)
-                sh.Draw(e.Graphics);
+                sh.Draw(g);
+        }
+        private void DrawShell(Graphics g)
+        {
+            if (ShapeList.Count > 2)
+            {
+                foreach (Shape sh in ShapeList)
+                {
+
+                }
+            }
+        }
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            DrawPoints(e.Graphics);
+            DrawShell(e.Graphics);
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
