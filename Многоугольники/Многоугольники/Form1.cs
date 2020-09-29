@@ -14,12 +14,16 @@ namespace Многоугольники
     {
         bool IsDragAndDrop;
         List <Shape> ShapeList;
+        enum ShapeType {Circle, Triangle, Square};
+        ShapeType ShType;
         public Form1()
         {
             InitializeComponent();
             ShapeList = new List <Shape>();
             ShapeList.Add(new Circle(Shape.Color, Shape.Radius, new Point(Width/2, Height/2)));
             IsDragAndDrop = false;
+            DoubleBuffered = true;
+            ShType = ShapeType.Circle;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -49,7 +53,12 @@ namespace Многоугольники
                 }
                 if (!IsDragAndDrop)
                 {
-                    ShapeList.Add(new Circle(Shape.Color, Shape.Radius, e.Location));
+                    switch (ShType)
+                    {
+                        case ShapeType.Circle: ShapeList.Add(new Circle(Shape.Color, Shape.Radius, e.Location)); break;
+                        case ShapeType.Triangle: ShapeList.Add(new Triangle(Shape.Color, Shape.Radius, e.Location)); break;
+                        case ShapeType.Square: ShapeList.Add(new Square(Shape.Color, Shape.Radius, e.Location)); break;
+                    }
                     Invalidate();
                 }
             }
@@ -77,9 +86,27 @@ namespace Многоугольники
             {
                 foreach (Shape sh in ShapeList)
                     if (sh.IsDragAndDrop)
-                        sh.Point = new Point(e.X - sh.Delta.X, e.Y - sh.Delta.Y);
+                    {
+                        sh.X = e.X - sh.Delta.X;
+                        sh.Y = e.Y - sh.Delta.Y;
+                    }
                 Invalidate();
             }
+        }
+
+        private void circleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShType = ShapeType.Circle;
+        }
+
+        private void triangleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShType = ShapeType.Triangle;
+        }
+
+        private void squareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShType = ShapeType.Square;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Многоугольники
         static Shape()
         {
             color = Color.Bisque;
-            radius = 10;
+            radius = 30;
         }
         public Shape()
         {
@@ -45,6 +45,17 @@ namespace Многоугольники
         {
             get { return color; }
             set { color = value; }
+        }
+
+        public int X
+        {
+            get { return point.X; }
+            set { point.X = value; }
+        }
+        public int Y
+        {
+            get { return point.Y; }
+            set { point.Y = value; }
         }
         public Point Point
         {
