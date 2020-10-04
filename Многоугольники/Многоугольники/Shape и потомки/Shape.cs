@@ -11,11 +11,12 @@ namespace Многоугольники
     abstract class Shape
     {
         protected bool Isdd;
-        protected Point delta;
+        protected PointF delta;
         protected static Color color;
         protected static int radius;
-        protected Point point;
-        protected bool IsInShell;
+        protected PointF point;
+        protected bool IsInShell_;
+        protected static SolidBrush brush;
         public abstract bool IsInside(Point p);
         public abstract void Draw(Graphics g);
 
@@ -23,16 +24,18 @@ namespace Многоугольники
         {
             color = Color.Bisque;
             radius = 30;
+            brush = new SolidBrush(color);
         }
         public Shape()
         {
-            point = new Point(100, 100);
+            point = new PointF(100, 100);
             Isdd = false;
-            IsInShell = false;
+            IsInShell_ = false;
         }
-        public Shape(Color color, int radius, Point point)
+        public Shape(Color color, int radius, PointF point)
         {
             Shape.color = color;
+            brush = new SolidBrush(color);
             Shape.radius = radius;
             this.point = point;
             Isdd = false;
@@ -46,20 +49,20 @@ namespace Многоугольники
         public static Color Color
         {
             get { return color; }
-            set { color = value; }
+            set { color = value; brush = new SolidBrush(color); }
         }
 
-        public int X
+        public float X
         {
             get { return point.X; }
             set { point.X = value; }
         }
-        public int Y
+        public float Y
         {
             get { return point.Y; }
             set { point.Y = value; }
         }
-        public Point Point
+        public PointF Point
         {
             get { return point; }
             set { point = value; }
@@ -69,10 +72,15 @@ namespace Многоугольники
             get { return Isdd; }
             set { Isdd = value; }
         }
-        public Point Delta
+        public PointF Delta
         {
             get { return delta; }
             set { delta = value; }
+        }
+        public bool IsInShell
+        {
+            get { return IsInShell_; }
+            set { IsInShell_ = value; }
         }
     }
 }

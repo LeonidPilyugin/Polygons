@@ -11,7 +11,7 @@ namespace Многоугольники
     class Circle : Shape
     {
         public Circle() : base() { }
-        public Circle(Color color, int radius, Point point) : base(color, radius, point) { }
+        public Circle(Color color, int radius, PointF point) : base(color, radius, point) { }
         
         public override bool IsInside(Point p)
         {
@@ -19,7 +19,7 @@ namespace Многоугольники
         }
         public override void Draw(Graphics g)
         {
-            g.FillEllipse(new SolidBrush(color), point.X - radius, point.Y - radius, radius * 2, radius * 2);
+            g.FillEllipse(brush, point.X - radius, point.Y - radius, radius * 2, radius * 2);
         }
     }
 }

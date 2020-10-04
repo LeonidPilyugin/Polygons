@@ -11,7 +11,7 @@ namespace Многоугольники
     class Square : Shape
     {
         public Square() : base() { }
-        public Square(Color color, int radius, Point point) : base(color, radius, point) { }
+        public Square(Color color, int radius, PointF point) : base(color, radius, point) { }
 
         private double Length
         {
@@ -24,7 +24,7 @@ namespace Многоугольники
         }
         public override void Draw(Graphics g)
         {
-            g.FillRectangle(new SolidBrush(color), point.X - (int)Length / 2, point.Y - (int)Length / 2, (int)Length, (int)Length);
+            g.FillRectangle(brush, point.X - (int)Length / 2, point.Y - (int)Length / 2, (int)Length, (int)Length);
         }
     }
 }
