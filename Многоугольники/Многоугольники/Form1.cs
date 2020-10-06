@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Math;
 
 namespace Многоугольники
 {
@@ -27,85 +28,13 @@ namespace Многоугольники
         }
 
         private void Form1_Load(object sender, EventArgs e)  { }
-
-        private void DrawPoints(Graphics g)
-        {
-            foreach (Shape sh in ShapeList)
-                sh.Draw(g);
-        }
-        private void DrawShell(Graphics g, Pen pen)
-        {
-            bool PointsAreInShell;
-            Line.Location l;
-            for (int a = 0; a < ShapeList.Count - 1; a++)
-            {
-                for (int b = a + 1; b < ShapeList.Count; b++)
-                {
-                    l = Line.Location.On;
-                    PointsAreInShell = true;
-                    if(ShapeList[a].X == ShapeList[b].X)
-                    {
-                        for(int c = 0; c < ShapeList.Count; c++)
-                        {
-                            if (Line.location(ShapeList[c].Point, ShapeList[a].X) == Line.Location.On || c == a || c == b)
-                                continue;
-                            if (l == Line.Location.On)
-                                l = Line.location(ShapeList[c].Point, ShapeList[a].X);
-                            else
-                            {
-                                if(l != Line.location(ShapeList[c].Point, ShapeList[a].X))
-                                {
-                                    PointsAreInShell = false;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        for (int c = 0; c < ShapeList.Count; c++)
-                        {
-                            if (c == a || c == b)
-                                continue;
-                            if (l == Line.Location.On)
-                                l = Line.location(ShapeList[c].Point, ShapeList[a].Point, ShapeList[b].Point);
-                            else
-                            {
-                                if (l != Line.location(ShapeList[c].Point, ShapeList[a].Point, ShapeList[b].Point))
-                                {
-                                    PointsAreInShell = false;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    
-                    if (PointsAreInShell)
-                    {
-                        ShapeList[a].IsInShell = ShapeList[b].IsInShell = true;
-                        g.DrawLine(pen, ShapeList[a].Point, ShapeList[b].Point);
-                    }
-                }
-            }
-            if (!IsDragAndDrop)
-                for (int i = 0; i < ShapeList.Count; i++)
-                    if (!ShapeList[i].IsInShell)
-                        ShapeList.Remove(ShapeList[i]);
-            foreach (Shape sh in ShapeList)
-                sh.IsInShell = false;
-        }
-
-        private void DrawShellJarvis(Graphics g)
-        {
-
-        }
-
+        
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Pen pen = new Pen(Color.Blue);
             if (ShapeList.Count > 2)
-                DrawShell(e.Graphics, pen);
-            DrawPoints(e.Graphics);
+                Draw.DrawShell(e.Graphics, pen, ShapeList, IsDragAndDrop);
+            Draw.DrawPoints(e.Graphics, ShapeList);
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -181,5 +110,7 @@ namespace Многоугольники
         {
             ShType = ShapeType.Square;
         }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e) { }
     }
 }

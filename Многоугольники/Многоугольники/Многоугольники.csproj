@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Line.cs" />
+    <Compile Include="Вспомогательные классы\Draw.cs" />
+    <Compile Include="Вспомогательные классы\Line.cs" />
     <Compile Include="Shape и потомки\Circle.cs" />
     <Compile Include="Shape и потомки\Shape.cs" />
     <Compile Include="Form1.cs">
