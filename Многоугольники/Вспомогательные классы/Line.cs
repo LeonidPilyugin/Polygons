@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using static System.Math;
 
 namespace Многоугольники
 {
@@ -33,6 +34,10 @@ namespace Многоугольники
             else if (P.X < x)
                 return Location.Below;
             return Location.On;
+        }
+        static public double Cos(PointF a, PointF b, PointF c)
+        {
+            return -(1 + k(a, b) * k(b, c)) / Sqrt((1 + k(a, b)*k(a, b)) * (1 + k(b, c) * k(b, c)));
         }
     }
 }

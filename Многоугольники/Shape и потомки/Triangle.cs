@@ -12,6 +12,8 @@ namespace Многоугольники
     {
         public Triangle() : base() { }
         public Triangle(Color color, int radius, PointF point) : base(color, radius, point) { }
+        public Triangle(PointF point) : base(point) { }
+
         public override bool IsInside(Point p)
         {
             return p.Y <= p.X * k(points[1], points[2]) + b(points[1], points[2]) && p.Y >= p.X * k(points[0], points[1]) + b(points[0], points[1]) && p.Y >= p.X * k(points[0], points[2]) + b(points[0], points[2]);

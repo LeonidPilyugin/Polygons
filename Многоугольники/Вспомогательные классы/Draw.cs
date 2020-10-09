@@ -75,8 +75,30 @@ namespace Многоугольники
 
         static public void DrawShellJarvis(Graphics g, Pen pen, List<Shape> ShapeList, bool IsDragAndDrop)
         {
-            Shape FirstShape = ShapeList[0], PreviousShape, NextShape, ThisShape;
-            double a, a1, a2;
+            Shape FirstShape, PreviousShape, ThisShape, temp;
+
+            FirstShape = JarvisFirstShape(ShapeList);
+            ThisShape = JarvisSecondShape(ShapeList, FirstShape);
+
+            g.DrawLine(pen, FirstShape.Point, ThisShape.Point);
+            PreviousShape = FirstShape;
+            ThisShape.IsInShell = PreviousShape.IsInShell = true;
+
+            do
+            {
+                temp = ThisShape;
+                ThisShape = JarvisNextShape(ShapeList, ThisShape, PreviousShape, FirstShape);
+                ThisShape.IsInShell = true;
+                PreviousShape = temp;
+                g.DrawLine(pen, ThisShape.Point, PreviousShape.Point);
+            } while (ThisShape != FirstShape);
+
+            DeletePointsAndFinishMakingShell(ShapeList, IsDragAndDrop);
+        }
+
+        static private Shape JarvisFirstShape(List<Shape> ShapeList)
+        {
+            Shape FirstShape = ShapeList[0];
             foreach (Shape sh in ShapeList)
             {
                 if (sh.Y < FirstShape.Y)
@@ -84,51 +106,46 @@ namespace Многоугольники
                 else if (sh.Y == FirstShape.Y && sh.X < FirstShape.X)
                     FirstShape = sh;
             }
-            FirstShape.IsInShell = true;
-            ThisShape = FirstShape;
-            a = Double.MaxValue;
+            return FirstShape;
+        }
+
+        static private Shape JarvisSecondShape(List<Shape> ShapeList, Shape FirstShape)
+        {
+            Shape SecondShape = FirstShape;
+            double a = double.MaxValue, a1;
             foreach (Shape sh in ShapeList)
             {
-                a1 = Atan(Line.k(sh.Point, FirstShape.Point));
-                if (a1 < 0)
-                    a1 += PI;
-                if (a1 < a)
+                if (!sh.IsInShell)
                 {
-                    ThisShape = sh;
-                    a = a1;
-                }
-            }
-            ThisShape.IsInShell = true;
-            g.DrawLine(pen, FirstShape.Point, ThisShape.Point);
-
-            NextShape = PreviousShape = FirstShape;
-            do
-            {
-                a = Double.MaxValue;
-                a1 = Atan(Line.k(ThisShape.Point, PreviousShape.Point));
-                if (a1 < 0)
-                    a1 += PI;
-                foreach (Shape sh in ShapeList)
-                {
-                    if (!sh.IsInShell || sh == FirstShape)
+                    a1 = Atan(Line.k(sh.Point, FirstShape.Point));
+                    if (a1 < 0)
+                        a1 += PI;
+                    if (a1 < a)
                     {
-                        a2 = Atan(Line.k(ThisShape.Point, sh.Point));
-                        if (a2 < 0)
-                            a2 += PI;
-                        if (a2 - a1 < a)
-                        {
-                            a = a2 - a1;
-                            NextShape = sh;
-                        }
+                        SecondShape = sh;
+                        a = a1;
                     }
                 }
-                PreviousShape = ThisShape;
-                ThisShape = NextShape;
-                ThisShape.IsInShell = true;
-                g.DrawLine(pen, PreviousShape.Point, ThisShape.Point);
-            } while (ThisShape != FirstShape);
+            }
+            return SecondShape;
+        }
 
-            DeletePointsAndFinishMakingShell(ShapeList, IsDragAndDrop);
+        static private Shape JarvisNextShape(List<Shape> ShapeList, Shape ThisShape, Shape PreviousShape, Shape FirstShape)
+        {
+            Shape TempShape = PreviousShape;
+            double MinCos = double.MaxValue;
+            foreach (Shape sh in ShapeList)
+            {
+                if (!sh.IsInShell || (sh == FirstShape && PreviousShape != FirstShape))
+                {
+                    if(Line.Cos(PreviousShape.Point, ThisShape.Point, sh.Point) < MinCos)
+                    {
+                        MinCos = Line.Cos(PreviousShape.Point, ThisShape.Point, sh.Point);
+                        TempShape = sh;
+                    }
+                }
+            }
+            return TempShape;
         }
 
         static private void DeletePointsAndFinishMakingShell(List<Shape> ShapeList, bool IsDragAndDrop)

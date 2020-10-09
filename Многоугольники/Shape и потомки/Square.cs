@@ -12,6 +12,7 @@ namespace Многоугольники
     {
         public Square() : base() { }
         public Square(Color color, int radius, PointF point) : base(color, radius, point) { }
+        public Square(PointF point) : base(point) { }
 
         private double Length
         {

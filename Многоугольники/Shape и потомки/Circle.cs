@@ -12,7 +12,8 @@ namespace Многоугольники
     {
         public Circle() : base() { }
         public Circle(Color color, int radius, PointF point) : base(color, radius, point) { }
-        
+        public Circle(PointF point) : base(point) { }
+
         public override bool IsInside(Point p)
         {
             return (p.X - point.X) * (p.X - point.X) + (p.Y - point.Y)* (p.Y - point.Y) <= radius * radius;

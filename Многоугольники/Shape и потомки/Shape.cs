@@ -41,6 +41,11 @@ namespace Многоугольники
             Isdd = false;
         }
 
+        public Shape(PointF point)
+        {
+            this.point = point;
+        }
+
         public static int Radius
         {
             get { return radius; }

@@ -33,7 +33,7 @@ namespace Многоугольники
         {
             Pen pen = new Pen(Color.Blue);
             if (ShapeList.Count > 2)
-                Draw.DrawShell(e.Graphics, pen, ShapeList, IsDragAndDrop);
+                Draw.DrawShellJarvis(e.Graphics, pen, ShapeList, IsDragAndDrop);
             Draw.DrawPoints(e.Graphics, ShapeList);
         }
 
