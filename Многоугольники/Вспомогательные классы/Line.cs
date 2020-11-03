@@ -13,7 +13,10 @@ namespace Многоугольники
         public enum Location { On, Over, Below };
         static public double k(PointF a, PointF b)
         {
-            return (a.Y - b.Y) / (a.X - b.X);
+            if (a.X != b.X)
+                return (a.Y - b.Y) / (a.X - b.X);
+            else
+                return /*a.Y > b.Y ? double.MinValue :*/ double.MaxValue;
         }
         static public double b(PointF a, PointF b)
         {
@@ -35,9 +38,26 @@ namespace Многоугольники
                 return Location.Below;
             return Location.On;
         }
+
         static public double Cos(PointF a, PointF b, PointF c)
         {
-            return -(1 + k(a, b) * k(b, c)) / Sqrt((1 + k(a, b)*k(a, b)) * (1 + k(b, c) * k(b, c)));
+            if(a.X != b.X && b.X != c.X)
+                return (k(a, b) > k(b, c) ? -1 : 1) * (1 + k(a, b) * k(b, c)) / Sqrt((1 + k(a, b)*k(a, b)) * (1 + k(b, c) * k(b, c)));
+            if(b.X != c.X)
+                return (k(a, b) > k(b, c) ? -1 : 1) * k(b, c) / Sqrt(1 + k(b, c) * k(b, c));
+            return (k(a, b) > k(b, c) ? -1 : 1) * k(a, b) / Sqrt(1 + k(a, b) * k(a, b));
+        }
+
+        static public double Cos(PointF b, PointF c)
+        {
+            if(b.X != c.X)
+                return (0 > k(b, c) ? -1 : 1) / Sqrt(1 + k(b, c) * k(b, c));
+            return 0;
+        }
+
+        static public double Distance(PointF a, PointF b)
+        {
+            return Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y));
         }
     }
 }

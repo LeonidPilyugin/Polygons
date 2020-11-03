@@ -75,19 +75,26 @@ namespace Многоугольники
 
         static public void DrawShellJarvis(Graphics g, Pen pen, List<Shape> ShapeList, bool IsDragAndDrop)
         {
+            foreach (Shape sh in ShapeList)
+                sh.IsInShell = false;
             Shape FirstShape, PreviousShape, ThisShape, temp;
-
+            /*foreach (Shape sh in ShapeList)
+                sh.Draw(g);*/
             FirstShape = JarvisFirstShape(ShapeList);
+            FirstShape.IsInShell = true;
+            //g.DrawString("1", new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point), new SolidBrush(Color.Black), FirstShape.Point);
             ThisShape = JarvisSecondShape(ShapeList, FirstShape);
+            ThisShape.IsInShell = true;
+            //g.DrawString("2", new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point), new SolidBrush(Color.Black), ThisShape.Point);
 
             g.DrawLine(pen, FirstShape.Point, ThisShape.Point);
             PreviousShape = FirstShape;
-            ThisShape.IsInShell = PreviousShape.IsInShell = true;
 
             do
             {
                 temp = ThisShape;
                 ThisShape = JarvisNextShape(ShapeList, ThisShape, PreviousShape, FirstShape);
+                //g.DrawString("next", new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point), new SolidBrush(Color.Black), ThisShape.Point);
                 ThisShape.IsInShell = true;
                 PreviousShape = temp;
                 g.DrawLine(pen, ThisShape.Point, PreviousShape.Point);
@@ -112,18 +119,15 @@ namespace Многоугольники
         static private Shape JarvisSecondShape(List<Shape> ShapeList, Shape FirstShape)
         {
             Shape SecondShape = FirstShape;
-            double a = double.MaxValue, a1;
+            double MaxCos = double.MinValue;
             foreach (Shape sh in ShapeList)
             {
                 if (!sh.IsInShell)
                 {
-                    a1 = Atan(Line.k(sh.Point, FirstShape.Point));
-                    if (a1 < 0)
-                        a1 += PI;
-                    if (a1 < a)
+                    if (Line.Cos(FirstShape.Point, sh.Point) > MaxCos || (Line.Cos(FirstShape.Point, sh.Point) == MaxCos && Line.Distance(FirstShape.Point, sh.Point) < Line.Distance(FirstShape.Point, SecondShape.Point)))
                     {
+                        MaxCos = Line.Cos(FirstShape.Point, sh.Point);
                         SecondShape = sh;
-                        a = a1;
                     }
                 }
             }
@@ -132,20 +136,20 @@ namespace Многоугольники
 
         static private Shape JarvisNextShape(List<Shape> ShapeList, Shape ThisShape, Shape PreviousShape, Shape FirstShape)
         {
-            Shape TempShape = PreviousShape;
-            double MinCos = double.MaxValue;
+            Shape NextShape = PreviousShape;
+            double MaxCos = double.MinValue;
             foreach (Shape sh in ShapeList)
             {
-                if (!sh.IsInShell || (sh == FirstShape && PreviousShape != FirstShape))
+                if (!sh.IsInShell || (sh == FirstShape && sh != PreviousShape))
                 {
-                    if(Line.Cos(PreviousShape.Point, ThisShape.Point, sh.Point) < MinCos)
+                    if(Line.Cos(PreviousShape.Point, ThisShape.Point, sh.Point) > MaxCos || (Line.Cos(PreviousShape.Point, ThisShape.Point, sh.Point) == MaxCos && Line.Distance(PreviousShape.Point, sh.Point) < Line.Distance(PreviousShape.Point, NextShape.Point)))
                     {
-                        MinCos = Line.Cos(PreviousShape.Point, ThisShape.Point, sh.Point);
-                        TempShape = sh;
+                        MaxCos = Line.Cos(PreviousShape.Point, ThisShape.Point, sh.Point);
+                        NextShape = sh;
                     }
                 }
             }
-            return TempShape;
+            return NextShape;
         }
 
         static private void DeletePointsAndFinishMakingShell(List<Shape> ShapeList, bool IsDragAndDrop)
@@ -153,7 +157,10 @@ namespace Многоугольники
             if (!IsDragAndDrop)
                 for (int i = 0; i < ShapeList.Count; i++)
                     if (!ShapeList[i].IsInShell)
-                        ShapeList.Remove(ShapeList[i]);
+                    {
+                        ShapeList.RemoveAt(i);
+                        i--;
+                    }
             foreach (Shape sh in ShapeList)
                 sh.IsInShell = false;
         }
