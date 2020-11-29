@@ -16,7 +16,7 @@ namespace Многоугольники
                 sh.Draw(g);
         }
 
-        static public void DrawShell(Graphics g, Pen pen, List<Shape> ShapeList, bool IsDragAndDrop)
+        static public void DrawShellByDefinition(Graphics g, Pen pen, List<Shape> ShapeList, bool IsDragAndDrop, bool IsComparingEffectiveness)
         {
             bool PointsAreInShell;
             Line.Location l;
@@ -66,14 +66,15 @@ namespace Многоугольники
                     if (PointsAreInShell)
                     {
                         ShapeList[a].IsInShell = ShapeList[b].IsInShell = true;
-                        g.DrawLine(pen, ShapeList[a].Point, ShapeList[b].Point);
+                        if(!IsComparingEffectiveness)
+                            g.DrawLine(pen, ShapeList[a].Point, ShapeList[b].Point);
                     }
                 }
             }
             DeletePointsAndFinishMakingShell(ShapeList, IsDragAndDrop);
         }
 
-        static public void DrawShellJarvis(Graphics g, Pen pen, List<Shape> ShapeList, bool IsDragAndDrop)
+        static public void DrawShellJarvis(Graphics g, Pen pen, List<Shape> ShapeList, bool IsDragAndDrop, bool IsComparingEffectiveness)
         {
             foreach (Shape sh in ShapeList)
                 sh.IsInShell = false;
@@ -87,7 +88,8 @@ namespace Многоугольники
             ThisShape.IsInShell = true;
             //g.DrawString("2", new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point), new SolidBrush(Color.Black), ThisShape.Point);
 
-            g.DrawLine(pen, FirstShape.Point, ThisShape.Point);
+            if (!IsComparingEffectiveness)
+                g.DrawLine(pen, FirstShape.Point, ThisShape.Point);
             PreviousShape = FirstShape;
 
             do
@@ -97,7 +99,8 @@ namespace Многоугольники
                 //g.DrawString("next", new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point), new SolidBrush(Color.Black), ThisShape.Point);
                 ThisShape.IsInShell = true;
                 PreviousShape = temp;
-                g.DrawLine(pen, ThisShape.Point, PreviousShape.Point);
+                if (!IsComparingEffectiveness)
+                    g.DrawLine(pen, ThisShape.Point, PreviousShape.Point);
             } while (ThisShape != FirstShape);
 
             DeletePointsAndFinishMakingShell(ShapeList, IsDragAndDrop);

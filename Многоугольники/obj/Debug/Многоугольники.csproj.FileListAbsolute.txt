@@ -41,10 +41,10 @@ Z:\ТПП\Polygons\Многоугольники\Многоугольники\obj
 D:\Учёба\ТПП\Polygons\Многоугольники\bin\Debug\Многоугольники.exe.config
 D:\Учёба\ТПП\Polygons\Многоугольники\bin\Debug\Многоугольники.exe
 D:\Учёба\ТПП\Polygons\Многоугольники\bin\Debug\Многоугольники.pdb
-D:\Учёба\ТПП\Polygons\Многоугольники\obj\Debug\Многоугольники.csprojAssemblyReference.cache
 D:\Учёба\ТПП\Polygons\Многоугольники\obj\Debug\Многоугольники.Form1.resources
 D:\Учёба\ТПП\Polygons\Многоугольники\obj\Debug\Многоугольники.Properties.Resources.resources
 D:\Учёба\ТПП\Polygons\Многоугольники\obj\Debug\Многоугольники.csproj.GenerateResource.cache
 D:\Учёба\ТПП\Polygons\Многоугольники\obj\Debug\Многоугольники.csproj.CoreCompileInputs.cache
 D:\Учёба\ТПП\Polygons\Многоугольники\obj\Debug\Многоугольники.exe
 D:\Учёба\ТПП\Polygons\Многоугольники\obj\Debug\Многоугольники.pdb
+D:\Учёба\ТПП\Polygons\Многоугольники\obj\Debug\Многоугольники.csprojAssemblyReference.cache

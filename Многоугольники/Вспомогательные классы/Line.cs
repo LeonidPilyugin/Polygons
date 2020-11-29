@@ -59,5 +59,10 @@ namespace Многоугольники
         {
             return Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y));
         }
+
+        static public bool AreCrossing(PointF a1, PointF b1, PointF a2, PointF b2)
+        {
+            return location(a1, a2, b2) == location(b1, a2, b2);
+        }
     }
 }
