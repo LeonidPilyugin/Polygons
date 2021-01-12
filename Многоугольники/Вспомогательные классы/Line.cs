@@ -11,6 +11,12 @@ namespace Многоугольники
     static class Line
     {
         public enum Location { On, Over, Below };
+        private static PointF InfinityPoint;
+
+        static Line()
+        {
+            InfinityPoint = new PointF(float.MaxValue, 0);
+        }
         static public double k(PointF a, PointF b)
         {
             if (a.X != b.X)
@@ -60,9 +66,17 @@ namespace Многоугольники
             return Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y));
         }
 
-        static public bool AreCrossing(PointF a1, PointF b1, PointF a2, PointF b2)
+        static public bool AreCrossing(PointF a1, PointF b1, PointF a2, PointF b2){//учесть случай прохода через вершину
+            if (location(a1, a2, b2) == Location.On || location(b1, a2, b2) == Location.On)
+                return true;
+            else
+                return (location(a1, a2, b2) != location(b1, a2, b2)) && (location(a2, a1, b1) != location(b2, a1, b1));
+        }
+
+        static public bool AreCrossing(PointF a, PointF b, PointF c)
         {
-            return location(a1, a2, b2) == location(b1, a2, b2);
+            InfinityPoint.Y = c.Y;
+            return AreCrossing(a, b, c, InfinityPoint);
         }
     }
 }

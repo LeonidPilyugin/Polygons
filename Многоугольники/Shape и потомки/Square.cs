@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace Многоугольники
 {
+    [Serializable]
     class Square : Shape
     {
         public Square() : base() { }

@@ -31,14 +31,29 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.shapeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.circleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.triangleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.squareToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.circleToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.triangleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shapesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.linesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -46,7 +61,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.shapeToolStripMenuItem});
+            this.shapeToolStripMenuItem,
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 33);
@@ -59,31 +75,136 @@
             this.shapeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.circleToolStripMenuItem,
             this.triangleToolStripMenuItem,
-            this.squareToolStripMenuItem});
+            this.squareToolStripMenuItem,
+            this.colorToolStripMenuItem,
+            this.playToolStripMenuItem,
+            this.stopToolStripMenuItem});
             this.shapeToolStripMenuItem.Name = "shapeToolStripMenuItem";
-            this.shapeToolStripMenuItem.Size = new System.Drawing.Size(73, 29);
-            this.shapeToolStripMenuItem.Text = "Shape";
+            this.shapeToolStripMenuItem.Size = new System.Drawing.Size(69, 29);
+            this.shapeToolStripMenuItem.Text = "Menu";
             // 
             // circleToolStripMenuItem
             // 
+            this.circleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.triangleToolStripMenuItem1,
+            this.squareToolStripMenuItem1,
+            this.circleToolStripMenuItem1});
             this.circleToolStripMenuItem.Name = "circleToolStripMenuItem";
-            this.circleToolStripMenuItem.Size = new System.Drawing.Size(144, 30);
-            this.circleToolStripMenuItem.Text = "Circle";
+            this.circleToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
+            this.circleToolStripMenuItem.Text = "Shape";
             this.circleToolStripMenuItem.Click += new System.EventHandler(this.circleToolStripMenuItem_Click);
+            // 
+            // triangleToolStripMenuItem1
+            // 
+            this.triangleToolStripMenuItem1.Name = "triangleToolStripMenuItem1";
+            this.triangleToolStripMenuItem1.Size = new System.Drawing.Size(144, 30);
+            this.triangleToolStripMenuItem1.Text = "Triangle";
+            this.triangleToolStripMenuItem1.Click += new System.EventHandler(this.triangleToolStripMenuItem1_Click);
+            // 
+            // squareToolStripMenuItem1
+            // 
+            this.squareToolStripMenuItem1.Name = "squareToolStripMenuItem1";
+            this.squareToolStripMenuItem1.Size = new System.Drawing.Size(144, 30);
+            this.squareToolStripMenuItem1.Text = "Square";
+            this.squareToolStripMenuItem1.Click += new System.EventHandler(this.squareToolStripMenuItem1_Click);
+            // 
+            // circleToolStripMenuItem1
+            // 
+            this.circleToolStripMenuItem1.Name = "circleToolStripMenuItem1";
+            this.circleToolStripMenuItem1.Size = new System.Drawing.Size(144, 30);
+            this.circleToolStripMenuItem1.Text = "Circle";
+            this.circleToolStripMenuItem1.Click += new System.EventHandler(this.circleToolStripMenuItem1_Click);
             // 
             // triangleToolStripMenuItem
             // 
             this.triangleToolStripMenuItem.Name = "triangleToolStripMenuItem";
-            this.triangleToolStripMenuItem.Size = new System.Drawing.Size(144, 30);
-            this.triangleToolStripMenuItem.Text = "Triangle";
+            this.triangleToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
+            this.triangleToolStripMenuItem.Text = "Radius";
             this.triangleToolStripMenuItem.Click += new System.EventHandler(this.triangleToolStripMenuItem_Click);
             // 
             // squareToolStripMenuItem
             // 
             this.squareToolStripMenuItem.Name = "squareToolStripMenuItem";
-            this.squareToolStripMenuItem.Size = new System.Drawing.Size(144, 30);
-            this.squareToolStripMenuItem.Text = "Square";
+            this.squareToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
+            this.squareToolStripMenuItem.Text = "Time interval";
             this.squareToolStripMenuItem.Click += new System.EventHandler(this.squareToolStripMenuItem_Click);
+            // 
+            // colorToolStripMenuItem
+            // 
+            this.colorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.shapesToolStripMenuItem,
+            this.linesToolStripMenuItem});
+            this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
+            this.colorToolStripMenuItem.Text = "Color";
+            this.colorToolStripMenuItem.Click += new System.EventHandler(this.colorToolStripMenuItem_Click);
+            // 
+            // shapesToolStripMenuItem
+            // 
+            this.shapesToolStripMenuItem.Name = "shapesToolStripMenuItem";
+            this.shapesToolStripMenuItem.Size = new System.Drawing.Size(141, 30);
+            this.shapesToolStripMenuItem.Text = "Shapes";
+            this.shapesToolStripMenuItem.Click += new System.EventHandler(this.shapesToolStripMenuItem_Click);
+            // 
+            // linesToolStripMenuItem
+            // 
+            this.linesToolStripMenuItem.Name = "linesToolStripMenuItem";
+            this.linesToolStripMenuItem.Size = new System.Drawing.Size(141, 30);
+            this.linesToolStripMenuItem.Text = "Lines";
+            this.linesToolStripMenuItem.Click += new System.EventHandler(this.linesToolStripMenuItem_Click);
+            // 
+            // playToolStripMenuItem
+            // 
+            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
+            this.playToolStripMenuItem.Text = "Play";
+            this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(184, 30);
+            this.stopToolStripMenuItem.Text = "Stop";
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(50, 29);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 30);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 30);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 30);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 30);
+            this.saveAsToolStripMenuItem.Text = "Save As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // button1
             // 
@@ -144,6 +265,10 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "label1";
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,6 +280,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
@@ -182,6 +308,21 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolStripMenuItem triangleToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem squareToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem circleToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem colorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem shapesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 

@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace Многоугольники
 {
+    [Serializable]
     class Circle : Shape
     {
         public Circle() : base() { }

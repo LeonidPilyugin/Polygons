@@ -79,14 +79,10 @@ namespace Многоугольники
             foreach (Shape sh in ShapeList)
                 sh.IsInShell = false;
             Shape FirstShape, PreviousShape, ThisShape, temp;
-            /*foreach (Shape sh in ShapeList)
-                sh.Draw(g);*/
             FirstShape = JarvisFirstShape(ShapeList);
             FirstShape.IsInShell = true;
-            //g.DrawString("1", new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point), new SolidBrush(Color.Black), FirstShape.Point);
             ThisShape = JarvisSecondShape(ShapeList, FirstShape);
             ThisShape.IsInShell = true;
-            //g.DrawString("2", new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point), new SolidBrush(Color.Black), ThisShape.Point);
 
             if (!IsComparingEffectiveness)
                 g.DrawLine(pen, FirstShape.Point, ThisShape.Point);
@@ -96,7 +92,6 @@ namespace Многоугольники
             {
                 temp = ThisShape;
                 ThisShape = JarvisNextShape(ShapeList, ThisShape, PreviousShape, FirstShape);
-                //g.DrawString("next", new Font("Arial", 12, FontStyle.Bold, GraphicsUnit.Point), new SolidBrush(Color.Black), ThisShape.Point);
                 ThisShape.IsInShell = true;
                 PreviousShape = temp;
                 if (!IsComparingEffectiveness)
@@ -106,7 +101,7 @@ namespace Многоугольники
             DeletePointsAndFinishMakingShell(ShapeList, IsDragAndDrop);
         }
 
-        static private Shape JarvisFirstShape(List<Shape> ShapeList)
+        static public Shape JarvisFirstShape(List<Shape> ShapeList)
         {
             Shape FirstShape = ShapeList[0];
             foreach (Shape sh in ShapeList)
@@ -119,7 +114,7 @@ namespace Многоугольники
             return FirstShape;
         }
 
-        static private Shape JarvisSecondShape(List<Shape> ShapeList, Shape FirstShape)
+        static public Shape JarvisSecondShape(List<Shape> ShapeList, Shape FirstShape)
         {
             Shape SecondShape = FirstShape;
             double MaxCos = double.MinValue;
@@ -137,7 +132,7 @@ namespace Многоугольники
             return SecondShape;
         }
 
-        static private Shape JarvisNextShape(List<Shape> ShapeList, Shape ThisShape, Shape PreviousShape, Shape FirstShape)
+        static public Shape JarvisNextShape(List<Shape> ShapeList, Shape ThisShape, Shape PreviousShape, Shape FirstShape)
         {
             Shape NextShape = PreviousShape;
             double MaxCos = double.MinValue;

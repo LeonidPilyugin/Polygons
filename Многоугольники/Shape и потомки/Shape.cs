@@ -8,14 +8,15 @@ using static System.Math;
 
 namespace Многоугольники
 {
+    [Serializable]
     abstract class Shape
     {
-        protected bool Isdd;
-        protected PointF delta;
+        [NonSerialized] protected bool Isdd;
+        [NonSerialized] protected PointF delta;
         protected static Color color;
         protected static int radius;
         protected PointF point;
-        protected bool IsInShell_;
+        [NonSerialized] protected bool IsInShell_;
         protected static SolidBrush brush;
         public abstract bool IsInside(Point p);
         public abstract void Draw(Graphics g);
@@ -82,6 +83,19 @@ namespace Многоугольники
             get { return delta; }
             set { delta = value; }
         }
+
+        public float DeltaX
+        {
+            get { return delta.X; }
+            set { delta.X = value; }
+        }
+
+        public float DeltaY
+        {
+            get { return delta.Y; }
+            set { delta.Y = value; }
+        }
+
         public bool IsInShell
         {
             get { return IsInShell_; }
