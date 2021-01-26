@@ -16,7 +16,12 @@ namespace Многоугольники
         public Form2()
         {
             InitializeComponent();
-            trackBar1.Value = (int)Form1.Timer.Interval;
+            trackBar1.Value = Shape.Radius;
+        }
+
+        public void refresh()
+        {
+            trackBar1.Value = Shape.Radius;
         }
 
         private void Form2_Load(object sender, EventArgs e)

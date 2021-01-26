@@ -16,7 +16,11 @@ namespace Многоугольники
         public Form3()
         {
             InitializeComponent();
-            trackBar1.Value = Shape.Radius;
+            trackBar1.Value = (int)Form1.Timer.Interval;
+        }
+        public void refresh()
+        {
+            trackBar1.Value = (int)Form1.Timer.Interval;
         }
 
         private void Form3_Load(object sender, EventArgs e)
@@ -34,6 +38,11 @@ namespace Многоугольники
         {
             e.Cancel = true;
             Hide();
+        }
+
+        private void Form3_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

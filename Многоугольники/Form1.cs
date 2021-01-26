@@ -115,6 +115,10 @@ namespace Многоугольники
             Shape.Radius = (int)bf.Deserialize(fs);
             pen.Color = (Color)bf.Deserialize(fs);
             fs.Close();
+            if (form3 != null)
+                form3.refresh();
+            if (form2 != null)
+                form2.refresh();
         }
 
         private void OnUnsavedWarningResultEvent(Object sender, UnsavedWarningEventArgs e)
@@ -344,7 +348,7 @@ namespace Многоугольники
         private void button1_Click(object sender, EventArgs e)
         {
             IsComparingEffectiveness = true;
-            stwr = new StreamWriter("D:\\Учёба\\ТПП\\output.txt");
+            //stwr = new StreamWriter("D:\\Учёба\\ТПП\\output.txt");
             //label1.Text = string.Format("Количество точек: {0}", n);
             ShapeListEffectitiveness.Clear();
             panel1.Show();
@@ -413,7 +417,20 @@ namespace Многоугольники
         {
             ShapeList = new List<Shape>();
             ShapeList.Add(new Circle(Shape.Color, Shape.Radius, new Point(Width / 2, Height / 2)));
+            fileName = null;
             Invalidate();
+            Shape.Color = Color.Bisque;
+            Shape.Radius = 30;
+            if (form2 != null && form2.Visible)
+            {
+                form2.Hide();
+                form2.refresh();
+            }
+            if (form3 != null && form3.Visible)
+            {
+                form3.Hide();
+                form3.refresh();
+            }
         }
 
         private void saveFile()
@@ -445,13 +462,11 @@ namespace Многоугольники
             //saveFileDialog1.Filter = "plg files (*.plg)|*.plg|All files (*.*)|*.*";
             //saveFileDialog1.FilterIndex = 2;
             //saveFileDialog1.RestoreDirectory = true;
-
             if (!saved)
             {
                 showWarning(newFile);
                 return;
             }
-
             newFile();
         }
 
