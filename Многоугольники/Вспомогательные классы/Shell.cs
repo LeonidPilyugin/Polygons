@@ -4,21 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using Shape;
 
 namespace Многоугольники
 {
     static class Shell
     {
-        private static List<Shape> TempShapeList;
+        private static List<Shape.Shape> TempShapeList;
 
         static Shell()
         {
-            TempShapeList = new List<Shape>();
+            TempShapeList = new List<Shape.Shape>();
         }
 
-        static public void SortList(List<Shape> ShapeList)
+        static public void SortList(List<Shape.Shape> ShapeList)
         {
-            Shape temp, PreviousShape;
+            Shape.Shape temp, PreviousShape;
             TempShapeList.Clear();
             TempShapeList.Add(Draw.JarvisFirstShape(ShapeList));
             TempShapeList.Add(Draw.JarvisSecondShape(ShapeList, TempShapeList[0]));
@@ -32,11 +33,11 @@ namespace Многоугольники
                 PreviousShape = temp;
             } while (TempShapeList.Last() != TempShapeList[0]);
             ShapeList.Clear();
-            foreach (Shape sh in TempShapeList)
+            foreach (Shape.Shape sh in TempShapeList)
                 ShapeList.Add(sh);
         }
 
-        static public bool IsInside(PointF point, List<Shape> ShapeList)
+        static public bool IsInside(PointF point, List<Shape.Shape> ShapeList)
         {
             int sum = 0;
             for(int i = 0; i < ShapeList.Count; i++)

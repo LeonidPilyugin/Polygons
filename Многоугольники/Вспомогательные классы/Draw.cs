@@ -5,18 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using static System.Math;
+using Shape;
 
 namespace Многоугольники
 {
     static class Draw
     {
-        static public void DrawPoints(Graphics g, List<Shape> ShapeList)
+        static public void DrawPoints(Graphics g, List<Shape.Shape> ShapeList)
         {
-            foreach (Shape sh in ShapeList)
+            foreach (Shape.Shape sh in ShapeList)
                 sh.Draw(g);
         }
 
-        static public void DrawShellByDefinition(Graphics g, Pen pen, List<Shape> ShapeList, bool IsDragAndDrop, bool IsComparingEffectiveness)
+        static public void DrawShellByDefinition(Graphics g, Pen pen, List<Shape.Shape> ShapeList, bool IsDragAndDrop, bool IsComparingEffectiveness)
         {
             bool PointsAreInShell;
             Line.Location l;
@@ -74,11 +75,11 @@ namespace Многоугольники
             DeletePointsAndFinishMakingShell(ShapeList, IsDragAndDrop);
         }
 
-        static public void DrawShellJarvis(Graphics g, Pen pen, List<Shape> ShapeList, bool IsDragAndDrop, bool IsComparingEffectiveness)
+        static public void DrawShellJarvis(Graphics g, Pen pen, List<Shape.Shape> ShapeList, bool IsDragAndDrop, bool IsComparingEffectiveness)
         {
-            foreach (Shape sh in ShapeList)
+            foreach (Shape.Shape sh in ShapeList)
                 sh.IsInShell = false;
-            Shape FirstShape, PreviousShape, ThisShape, temp;
+            Shape.Shape FirstShape, PreviousShape, ThisShape, temp;
             FirstShape = JarvisFirstShape(ShapeList);
             FirstShape.IsInShell = true;
             ThisShape = JarvisSecondShape(ShapeList, FirstShape);
@@ -101,10 +102,10 @@ namespace Многоугольники
             DeletePointsAndFinishMakingShell(ShapeList, IsDragAndDrop);
         }
 
-        static public Shape JarvisFirstShape(List<Shape> ShapeList)
+        static public Shape.Shape JarvisFirstShape(List<Shape.Shape> ShapeList)
         {
-            Shape FirstShape = ShapeList[0];
-            foreach (Shape sh in ShapeList)
+            Shape.Shape FirstShape = ShapeList[0];
+            foreach (Shape.Shape sh in ShapeList)
             {
                 if (sh.Y < FirstShape.Y)
                     FirstShape = sh;
@@ -114,11 +115,11 @@ namespace Многоугольники
             return FirstShape;
         }
 
-        static public Shape JarvisSecondShape(List<Shape> ShapeList, Shape FirstShape)
+        static public Shape.Shape JarvisSecondShape(List<Shape.Shape> ShapeList, Shape.Shape FirstShape)
         {
-            Shape SecondShape = FirstShape;
+            Shape.Shape SecondShape = FirstShape;
             double MaxCos = double.MinValue;
-            foreach (Shape sh in ShapeList)
+            foreach (Shape.Shape sh in ShapeList)
             {
                 if (!sh.IsInShell)
                 {
@@ -132,11 +133,11 @@ namespace Многоугольники
             return SecondShape;
         }
 
-        static public Shape JarvisNextShape(List<Shape> ShapeList, Shape ThisShape, Shape PreviousShape, Shape FirstShape)
+        static public Shape.Shape JarvisNextShape(List<Shape.Shape> ShapeList, Shape.Shape ThisShape, Shape.Shape PreviousShape, Shape.Shape FirstShape)
         {
-            Shape NextShape = PreviousShape;
+            Shape.Shape NextShape = PreviousShape;
             double MaxCos = double.MinValue;
-            foreach (Shape sh in ShapeList)
+            foreach (Shape.Shape sh in ShapeList)
             {
                 if (!sh.IsInShell || (sh == FirstShape && sh != PreviousShape))
                 {
@@ -150,7 +151,7 @@ namespace Многоугольники
             return NextShape;
         }
 
-        static private void DeletePointsAndFinishMakingShell(List<Shape> ShapeList, bool IsDragAndDrop)
+        static private void DeletePointsAndFinishMakingShell(List<Shape.Shape> ShapeList, bool IsDragAndDrop)
         {
             if (!IsDragAndDrop)
                 for (int i = 0; i < ShapeList.Count; i++)
@@ -159,7 +160,7 @@ namespace Многоугольники
                         ShapeList.RemoveAt(i);
                         i--;
                     }
-            foreach (Shape sh in ShapeList)
+            foreach (Shape.Shape sh in ShapeList)
                 sh.IsInShell = false;
         }
     }

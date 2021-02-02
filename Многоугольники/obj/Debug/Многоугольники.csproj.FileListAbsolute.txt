@@ -64,3 +64,6 @@ Z:\Многоугольники\Polygons-master\Многоугольники\obj
 Z:\Многоугольники\Polygons-master\Многоугольники\obj\Debug\Многоугольники.csproj.CoreCompileInputs.cache
 Z:\Многоугольники\Polygons-master\Многоугольники\obj\Debug\Многоугольники.exe
 Z:\Многоугольники\Polygons-master\Многоугольники\obj\Debug\Многоугольники.pdb
+Z:\Многоугольники\Polygons-master\Многоугольники\bin\Debug\Shape.dll
+Z:\Многоугольники\Polygons-master\Многоугольники\bin\Debug\Shape.pdb
+Z:\Многоугольники\Polygons-master\Многоугольники\obj\Debug\Многоугольники.csproj.CopyComplete

@@ -13,6 +13,7 @@ using System.IO;
 using System.Timers;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Shape;
 
 namespace Многоугольники
 {
@@ -27,8 +28,8 @@ namespace Многоугольники
         bool IsDragAndDrop;
         bool IsDragAndDropShell;
         bool IsComparingEffectiveness;
-        List <Shape> ShapeList;
-        List<Shape> ShapeListEffectitiveness;
+        List <Shape.Shape> ShapeList;
+        List<Shape.Shape> ShapeListEffectitiveness;
         enum ShapeType {Circle, Triangle, Square};
         ShapeType ShType;
         Pen pen;
@@ -47,9 +48,9 @@ namespace Многоугольники
         {
             ShellType = TypeOfShell.Jarvis;
             InitializeComponent();
-            ShapeList = new List <Shape>();
-            ShapeListEffectitiveness = new List <Shape>();
-            ShapeList.Add(new Circle(Shape.Color, Shape.Radius, new Point(Width/2, Height/2)));
+            ShapeList = new List <Shape.Shape>();
+            ShapeListEffectitiveness = new List <Shape.Shape>();
+            ShapeList.Add(new Circle(Shape.Shape.Color, Shape.Shape.Radius, new Point(Width/2, Height/2)));
             IsDragAndDrop = false;
             DoubleBuffered = true;
             ShType = ShapeType.Circle;
@@ -99,8 +100,8 @@ namespace Многоугольники
             BinaryFormatter bf = new BinaryFormatter();
             //FileStream fs = new FileStream(name, mode, FileAccess.Write);
             bf.Serialize(fs, ShapeList);
-            bf.Serialize(fs, Shape.Color);
-            bf.Serialize(fs, Shape.Radius);
+            bf.Serialize(fs, Shape.Shape.Color);
+            bf.Serialize(fs, Shape.Shape.Radius);
             bf.Serialize(fs, pen.Color);
             fs.Close();
             saved = true;
@@ -110,9 +111,9 @@ namespace Многоугольники
         {
             BinaryFormatter bf = new BinaryFormatter();
             //FileStream fs = new FileStream(name, FileMode.Open, FileAccess.Read);
-            ShapeList = (List<Shape>)bf.Deserialize(fs);
-            Shape.Color = (Color)bf.Deserialize(fs);
-            Shape.Radius = (int)bf.Deserialize(fs);
+            ShapeList = (List<Shape.Shape>)bf.Deserialize(fs);
+            Shape.Shape.Color = (Color)bf.Deserialize(fs);
+            Shape.Shape.Radius = (int)bf.Deserialize(fs);
             pen.Color = (Color)bf.Deserialize(fs);
             fs.Close();
             if (form3 != null)
@@ -144,7 +145,7 @@ namespace Многоугольники
 
         private void OnTimedEvent(Object sender, System.Timers.ElapsedEventArgs e)
         {
-            foreach(Shape sh in ShapeList)
+            foreach(Shape.Shape sh in ShapeList)
             {
                 sh.X += random.Next(3) - 1;
                 sh.Y += random.Next(3) - 1;
@@ -155,7 +156,7 @@ namespace Многоугольники
 
         private void RadiusChanged(object sender, RadiusEventArgs e)
         {
-            Shape.Radius = e.R;
+            Shape.Shape.Radius = e.R;
             Invalidate();
             saved = false;
         }
@@ -191,7 +192,7 @@ namespace Многоугольники
                 {
                     ShapeListEffectitiveness.Clear();
                     for (int i = 0; i < n; i++)
-                        ShapeListEffectitiveness.Add(new Circle(Shape.Color, Shape.Radius, new Point(random.Next(), random.Next())));
+                        ShapeListEffectitiveness.Add(new Circle(Shape.Shape.Color, Shape.Shape.Radius, new Point(random.Next(), random.Next())));
                     Draw.DrawShellByDefinition(e.Graphics, pen, ShapeListEffectitiveness, true, true);
                     Draw.DrawShellJarvis(e.Graphics, pen, ShapeListEffectitiveness, true, true);
                     for (int j = 0; j < m; j++)
@@ -218,9 +219,9 @@ namespace Многоугольники
         {
             switch (ShType)
             {
-                case ShapeType.Circle: ShapeList.Add(new Circle(Shape.Color, Shape.Radius, point)); break;
-                case ShapeType.Triangle: ShapeList.Add(new Triangle(Shape.Color, Shape.Radius, point)); break;
-                case ShapeType.Square: ShapeList.Add(new Square(Shape.Color, Shape.Radius, point)); break;
+                case ShapeType.Circle: ShapeList.Add(new Circle(Shape.Shape.Color, Shape.Shape.Radius, point)); break;
+                case ShapeType.Triangle: ShapeList.Add(new Triangle(Shape.Shape.Color, Shape.Shape.Radius, point)); break;
+                case ShapeType.Square: ShapeList.Add(new Square(Shape.Shape.Color, Shape.Shape.Radius, point)); break;
             }
             saved = false;
         }
@@ -230,11 +231,11 @@ namespace Многоугольники
             IsDragAndDrop = false;
             bool IsInsideAnyShape = false;
             IsDragAndDropShell = false;
-            foreach (Shape sh in ShapeList)
+            foreach (Shape.Shape sh in ShapeList)
                 IsInsideAnyShape |= sh.IsInside(e.Location);
             if (e.Button == MouseButtons.Left)
             {
-                foreach (Shape sh in ShapeList)
+                foreach (Shape.Shape sh in ShapeList)
                 {
                     sh.IsDragAndDrop = sh.IsInside(e.Location);
                     if (sh.IsDragAndDrop)
@@ -255,7 +256,7 @@ namespace Многоугольники
                         if (Shell.IsInside(e.Location, ShapeList))
                         {
                             IsDragAndDropShell = true;
-                            foreach (Shape sh in ShapeList)
+                            foreach (Shape.Shape sh in ShapeList)
                             {
                                 sh.DeltaX = e.X - sh.Point.X;
                                 sh.DeltaY = e.Y - sh.Point.Y;
@@ -282,7 +283,7 @@ namespace Многоугольники
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
-            foreach (Shape sh in ShapeList)
+            foreach (Shape.Shape sh in ShapeList)
                 sh.IsDragAndDrop = false;
             IsDragAndDrop = false;
             IsDragAndDropShell = false;
@@ -293,7 +294,7 @@ namespace Многоугольники
         {
             if (IsDragAndDrop || IsDragAndDropShell)
             {
-                foreach (Shape sh in ShapeList)
+                foreach (Shape.Shape sh in ShapeList)
                     if (sh.IsDragAndDrop || IsDragAndDropShell)
                     {
                         sh.X = e.X - sh.Delta.X;
@@ -399,7 +400,7 @@ namespace Многоугольники
         {
             if (colorDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            Shape.Color = colorDialog.Color;
+            Shape.Shape.Color = colorDialog.Color;
             saved = false;
             Invalidate();
         }
@@ -415,12 +416,12 @@ namespace Многоугольники
 
         private void newFile()
         {
-            ShapeList = new List<Shape>();
-            ShapeList.Add(new Circle(Shape.Color, Shape.Radius, new Point(Width / 2, Height / 2)));
+            ShapeList = new List<Shape.Shape>();
+            ShapeList.Add(new Circle(Shape.Shape.Color, Shape.Shape.Radius, new Point(Width / 2, Height / 2)));
             fileName = null;
             Invalidate();
-            Shape.Color = Color.Bisque;
-            Shape.Radius = 30;
+            Shape.Shape.Color = Color.Bisque;
+            Shape.Shape.Radius = 30;
             if (form2 != null && form2.Visible)
             {
                 form2.Hide();
