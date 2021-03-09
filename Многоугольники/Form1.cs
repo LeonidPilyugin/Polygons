@@ -44,6 +44,7 @@ namespace Многоугольники
         Form4 unsavedWarning;
         Stack<Change> undo;
         Stack<Change> redo;
+        Point delta;
 
         public Form1()
         {
@@ -71,6 +72,7 @@ namespace Многоугольники
             unsavedWarning = null;
             undo = new Stack<Change>();
             redo = new Stack<Change>();
+            delta = new Point();
         }
 
         static Form1()
@@ -233,6 +235,7 @@ namespace Многоугольники
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
+            delta = e.Location;
             IsDragAndDrop = false;
             bool IsInsideAnyShape = false;
             IsDragAndDropShell = false;
@@ -277,6 +280,7 @@ namespace Многоугольники
                 {
                     if (ShapeList[i].IsInside(e.Location))
                     {
+                        undo.Push(new DeletePoint(ShapeList[i]));
                         ShapeList.Remove(ShapeList[i]);
                         saved = false;
                         Invalidate();
@@ -288,8 +292,20 @@ namespace Многоугольники
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
+            delta.X = e.Location.X - delta.X;
+            delta.Y = e.Location.Y - delta.Y;
             foreach (Shape sh in ShapeList)
+            {
+                if(sh.IsDragAndDrop && IsDragAndDrop)
+                {
+                    undo.Push(new MovePoint(sh, delta));
+                }
                 sh.IsDragAndDrop = false;
+            }
+            if(IsDragAndDropShell)
+            {
+                undo.Push(new MoveShell(delta));
+            }
             IsDragAndDrop = false;
             IsDragAndDropShell = false;
             Invalidate();
@@ -374,16 +390,19 @@ namespace Многоугольники
 
         private void triangleToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            undo.Push(new ChangeVertextype(ShType, ShapeType.Triangle));
             ShType = ShapeType.Triangle;
         }
 
         private void squareToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            undo.Push(new ChangeVertextype(ShType, ShapeType.Square));
             ShType = ShapeType.Square;
         }
 
         private void circleToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            undo.Push(new ChangeVertextype(ShType, ShapeType.Circle));
             ShType = ShapeType.Circle;
         }
 
@@ -405,6 +424,7 @@ namespace Многоугольники
         {
             if (colorDialog.ShowDialog() == DialogResult.Cancel)
                 return;
+            undo.Push(new ChangeColor(Shape.Color, colorDialog.Color));
             Shape.Color = colorDialog.Color;
             saved = false;
             Invalidate();
