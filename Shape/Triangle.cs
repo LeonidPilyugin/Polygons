@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static System.Math;
 using System.Drawing;
 
-namespace Shape
+namespace ShapeLib
 {
     [Serializable]
     public class Triangle : Shape

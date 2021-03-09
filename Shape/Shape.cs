@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shape
+namespace ShapeLib
 {
+    public enum ShapeType { Circle, Triangle, Square };
     [Serializable]
     public abstract class Shape
     {

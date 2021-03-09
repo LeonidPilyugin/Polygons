@@ -3,3 +3,8 @@ Z:\Многоугольники\Polygons-master\Shape\bin\Debug\Shape.pdb
 Z:\Многоугольники\Polygons-master\Shape\obj\Debug\Shape.csproj.CoreCompileInputs.cache
 Z:\Многоугольники\Polygons-master\Shape\obj\Debug\Shape.dll
 Z:\Многоугольники\Polygons-master\Shape\obj\Debug\Shape.pdb
+Z:\Многоугольники\Polygons\Shape\bin\Debug\Shape.dll
+Z:\Многоугольники\Polygons\Shape\bin\Debug\Shape.pdb
+Z:\Многоугольники\Polygons\Shape\obj\Debug\Shape.csproj.CoreCompileInputs.cache
+Z:\Многоугольники\Polygons\Shape\obj\Debug\Shape.dll
+Z:\Многоугольники\Polygons\Shape\obj\Debug\Shape.pdb

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Shape;
+using ShapeLib;
 
 namespace Многоугольники
 {
@@ -17,12 +17,12 @@ namespace Многоугольники
         public Form2()
         {
             InitializeComponent();
-            trackBar1.Value = Shape.Shape.Radius;
+            trackBar1.Value = Shape.Radius;
         }
 
         public void refresh()
         {
-            trackBar1.Value = Shape.Shape.Radius;
+            trackBar1.Value = Shape.Radius;
         }
 
         private void Form2_Load(object sender, EventArgs e)
