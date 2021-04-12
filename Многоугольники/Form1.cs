@@ -45,7 +45,7 @@ namespace Многоугольники
         Stack<Change> undo;
         Stack<Change> redo;
         Point delta;
-
+        int radius;
         public Form1()
         {
             ShellType = TypeOfShell.Jarvis;
@@ -161,10 +161,14 @@ namespace Многоугольники
 
         private void RadiusChanged(object sender, RadiusEventArgs e)
         {
-            undo.Push(new ChangeRadius(e.R - Shape.Radius));
             Shape.Radius = e.R;
             Invalidate();
             saved = false;
+        }
+
+        public void OnForm2Closing(object sender, FormClosingEventArgs e)
+        {
+            undo.Push(new ChangeRadius(Shape.Radius - radius));
         }
         private void TimeIntervalChanged(object sender, RadiusEventArgs e)
         {
@@ -337,12 +341,15 @@ namespace Многоугольники
             {
                 form2 = new Form2();
                 form2.RC += RadiusChanged;
+                form2.CS += OnForm2Closing;
                 form2.Show();
+                radius = Shape.Radius;
             }
             else if (form2.WindowState == System.Windows.Forms.FormWindowState.Minimized)
                 form2.WindowState = FormWindowState.Normal;
             else
             {
+                radius = Shape.Radius;
                 form2.Show();
                 form2.Activate();
             }
@@ -386,23 +393,24 @@ namespace Многоугольники
 
         private void radiusToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
         }
 
         private void triangleToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            undo.Push(new ChangeVertextype(ShType, ShapeType.Triangle));
+            undo.Push(new ChangeVertexType(ShType, ShapeType.Triangle));
             ShType = ShapeType.Triangle;
         }
 
         private void squareToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            undo.Push(new ChangeVertextype(ShType, ShapeType.Square));
+            undo.Push(new ChangeVertexType(ShType, ShapeType.Square));
             ShType = ShapeType.Square;
         }
 
         private void circleToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            undo.Push(new ChangeVertextype(ShType, ShapeType.Circle));
+            undo.Push(new ChangeVertexType(ShType, ShapeType.Circle));
             ShType = ShapeType.Circle;
         }
 
@@ -412,6 +420,7 @@ namespace Многоугольники
 
         private void playToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            undo.Push(new ChangeDynamic(ShapeList));
             timer.Enabled = true;
         }
 
@@ -424,7 +433,7 @@ namespace Многоугольники
         {
             if (colorDialog.ShowDialog() == DialogResult.Cancel)
                 return;
-            undo.Push(new ChangeColor(Shape.Color, colorDialog.Color));
+            undo.Push(new ChangeColorShape(Shape.Color, colorDialog.Color));
             Shape.Color = colorDialog.Color;
             saved = false;
             Invalidate();
@@ -434,6 +443,7 @@ namespace Многоугольники
         {
             if (colorDialog.ShowDialog() == DialogResult.Cancel)
                 return;
+            undo.Push(new ChangeColorPen(pen.Color, colorDialog.Color, pen));
             pen.Color = colorDialog.Color;
             saved = false;
             Invalidate();
@@ -536,6 +546,26 @@ namespace Многоугольники
             {
                 showWarning(Close);
                 e.Cancel = true;
+            }
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(undo.Count > 0)
+            {
+                undo.Peek().Undo();
+                redo.Push(undo.Pop());
+                Invalidate();
+            }
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(redo.Count > 0)
+            {
+                redo.Peek().Redo();
+                undo.Push(redo.Pop());
+                Invalidate();
             }
         }
     }

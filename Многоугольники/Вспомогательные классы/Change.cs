@@ -119,11 +119,11 @@ namespace Многоугольники
         }
     }
 
-    class ChangeColor : Change
+    class ChangeColorShape : Change
     {
-        private Color last;
-        private Color next;
-        public ChangeColor(Color last, Color next)
+        protected Color last;
+        protected Color next;
+        public ChangeColorShape(Color last, Color next)
         {
             this.last = last;
             this.next = next;
@@ -138,12 +138,29 @@ namespace Многоугольники
         }
     }
 
-    class ChangeVertextype : Change
+    class ChangeColorPen : ChangeColorShape
+    {
+        private Pen pen;
+        public ChangeColorPen(Color last, Color next, Pen pen) : base(last, next)
+        {
+            this.pen = pen;
+        }
+        public override void Redo()
+        {
+            pen.Color = next;
+        }
+        public override void Undo()
+        {
+            pen.Color = last;
+        }
+    }
+
+    class ChangeVertexType : Change
     {
         private ShapeType last;
         private ShapeType next;
 
-        public ChangeVertextype(ShapeType last, ShapeType next)
+        public ChangeVertexType(ShapeType last, ShapeType next)
         {
             this.last = last;
             this.next = next;

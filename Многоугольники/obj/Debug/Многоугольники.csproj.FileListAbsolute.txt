@@ -67,3 +67,6 @@ Z:\Многоугольники\Polygons-master\Многоугольники\obj
 Z:\Многоугольники\Polygons-master\Многоугольники\bin\Debug\Shape.dll
 Z:\Многоугольники\Polygons-master\Многоугольники\bin\Debug\Shape.pdb
 Z:\Многоугольники\Polygons-master\Многоугольники\obj\Debug\Многоугольники.csproj.CopyComplete
+D:\Учёба\ТПП\Polygons\Многоугольники\bin\Debug\Shape.dll
+D:\Учёба\ТПП\Polygons\Многоугольники\bin\Debug\Shape.pdb
+D:\Учёба\ТПП\Polygons\Многоугольники\obj\Debug\Многоугольники.csproj.CopyComplete

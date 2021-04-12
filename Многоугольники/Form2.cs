@@ -14,6 +14,7 @@ namespace Многоугольники
     public partial class Form2 : Form
     {
         public event RadiusChangedHandler RC;
+        public event FormClosingEventHandler CS;
         public Form2()
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace Многоугольники
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
+            CS(this, e);
             e.Cancel = true;
             Hide();
         }

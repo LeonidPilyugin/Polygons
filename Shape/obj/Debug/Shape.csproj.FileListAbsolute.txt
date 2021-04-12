@@ -8,3 +8,9 @@ Z:\Многоугольники\Polygons\Shape\bin\Debug\Shape.pdb
 Z:\Многоугольники\Polygons\Shape\obj\Debug\Shape.csproj.CoreCompileInputs.cache
 Z:\Многоугольники\Polygons\Shape\obj\Debug\Shape.dll
 Z:\Многоугольники\Polygons\Shape\obj\Debug\Shape.pdb
+D:\Учёба\ТПП\Polygons\Shape\bin\Debug\Shape.dll
+D:\Учёба\ТПП\Polygons\Shape\bin\Debug\Shape.pdb
+D:\Учёба\ТПП\Polygons\Shape\obj\Debug\Shape.csprojAssemblyReference.cache
+D:\Учёба\ТПП\Polygons\Shape\obj\Debug\Shape.csproj.CoreCompileInputs.cache
+D:\Учёба\ТПП\Polygons\Shape\obj\Debug\Shape.dll
+D:\Учёба\ТПП\Polygons\Shape\obj\Debug\Shape.pdb
